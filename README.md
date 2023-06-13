@@ -1,152 +1,76 @@
-<!--
-<img src="images/Logo_Laser.png" height="352"/>
-<p style="
-   margin: 20px 0px;
-   font-size: xx-large;
-" >
-   Unmanned Ground Vehicle System
-</p>
-<div>
-   <div style="display: inline-flex; margin: 10px;">
-      <div style=" margin: 0px 5px;">
-         <img src="images/l1br.png" height="150" width="250" style="border-radius: 15px;"/>
-         <p style="font-size: x-large;">L1BR</p>
-      </div>
-      <div style=" margin: 0px 5px;">
-         <img src="images/oni.png" height="150" width="250" style="border-radius: 15px;"/>
-         <p style="font-size: x-large;">ONI</p>
-      </div>
-   </div>
-</div>
--->
+# Readme
+## Description
 
-<h1>Laser Unmanned Ground Vehicle System</h1>
+This repository contains launch and run commands for  simulation using ROS2 (Robot Operating System 2). It includes commands for launching the world simulation, robot descriptions, navigation, SLAM (Simultaneous Localization and Mapping), RViz visualization, and goal pose publishing. Additionally, it provides instructions for saving a map generated during the simulation.
 
-<div align="center">
-   <div style="margin-bottom: 20px;">
-      <div>
-         <img src="images/gazebo-simulations.png" height="352"/>
-      </div>
-   </div>
-</div>
+## Prerequisites
 
-<h2>Description<a name="Description"></a></h2>
+To run the  simulation, you need to have the following software installed:
 
-<p>
-   The Laser-Robotics is a robotics lab at the UFPB. We work with ground and
-   aerial robots, we developed this plataform for academic use in the robotic
-   subject of the Computer Enginnering program. 
-   <br>🚧 Does not work with
-   multiple robots (yet...) 🚧
-</p>
+    ROS2: Make sure you have ROS2 installed on your system. You can refer to the official ROS2 documentation for installation instructions.
 
-<h2>Contents<a name="Contents"></a></h2>
-<ul>
-   <li><a href="#Description">Description</a></li>
-   <li><a href="#Contents">Contents</a></li>
-   <li><a href="#Requirements">Requirements</a></li>
-   <li><a href="#L1BR">L1BR</a></li>
-   <li><a href="#Oni">Oni</a></li>
-   <li><a href="#Installation">Installation</a></li>
-   <li><a href="#RunningTheSimulation">Running the simulation</a></li>
-   <ul>
-   <li><a href="#StartingWorld">Starting world</a></li>
-   <li><a href="#SpawningRobot">Spawning robot</a></li>
-   <li><a href="#Control">Control</a></li>
-   </ul>
-</ul>
 
-<h2>Requirements<a name="Requirements"></a></h2>
-<ul>
-   <li>Ubuntu 22.04</li>
-   <li><a href="https://docs.ros.org/en/humble/">ROS 2 Humble</a></li>
-   <li>Gazebo</li>
-</ul>
+## Building and Installing Packages
 
-<h2>L1BR<a name="L1BR"></a></h2>
-<p>
-L1BR is a differencial robot who can move around a warehouse to go under the shelves and lift them to other positions.
-</p>
-<div align="center">
-   <div style="margin-bottom: 20px;">
-      <div>
-         <img src="images/l1br.png" height="150" width="250"/>
-      </div>
-   </div>
-</div>
 
-<h2>Oni<a name="Oni"></a></h2>
-<p>
-Oni is a omnidirectional robot that was made for academic purposes so students can test a omnidirectional robot.
-</p>
-<div align="center">
-   <div style="margin-bottom: 20px;">
-      <div>
-         <img src="images/oni.png" height="150" width="250"/>
-      </div>
-   </div>
-</div>
 
-<h2>Installation<a name="Installation"></a></h2>
-<p>
-In your workspace inside the <code>src</code> folder do the following command:
-</p>
-<pre>
-git clone https://github.com/LASER-Robotics/ugv_system.git
-cd ugv_system
-chmod +x setup_enviroment.sh
-./setup_enviroment.sh
-</pre>
-<p>
-To build the packages go to your workspace and do the following command:
-</p>
-<pre>
-colcon build
-</pre>
+Install the nav2 package by executing the following command:
 
-<h2>Running the simulation<a name="RunningTheSimulation"></a></h2>
-<h3>Starting world<a name="StartingWorld"></a></h3>
-<p>
-Run this command:
-<pre>
-ros2 launch ugv_simulation world_launch.py
-</pre>
-If you want to change the world, go to <code>ugv_system/ugv_simulation/worlds</code> and place the new <code>.world</code> file. Still in the <code>worlds</code> folder, run the following command changing <code>world_name</code> by your world's name.
-<pre>
-ros2 launch ugv_simulation world_launch.py world:=world_name.world
-</pre>
-</p>
 
-<h3>Spawning robot<a name="SpawningRobot"></a></h3>
-<p>
-<ul>
-<li>L1BR</li>
-</ul>
-<pre>
-ros2 launch ugv_robots_descriptions l1br_description_launch.py
-</pre>
+    sudo apt-get install ros-${ROS_DISTRO}-nav2
 
-<ul>
-<li>Oni</li>
-</ul>
-<pre>
-ros2 launch ugv_robots_descriptions oni_description_launch.py
-</pre>
-</p>
+Install the slam_toolbox package by executing the following command:
 
-<h3>Control<a name="Control"></a></h3>
-<p>
-Run this command to control your robot with keyboard:
-<ul>
-<li>L1BR</li>
-</ul>
-<pre>
-ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args-r /cmd_vel:=/diff_cont/cmd_vel_unstamped
-</pre>
-<ul>
-<li>Oni</li>
-</ul>
-<pre>
-ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args-r /cmd_vel:=/oni/cmd_vel
-</pre>
-</p>
+
+    sudo apt-get install ros-${ROS_DISTRO}-slam-toolbox
+
+Build the packages using colcon by executing the following command in your workspace directory:
+
+    colcon build --symlink-install
+
+## Launching the Simulation
+
+Launch the world simulation by executing the following command:
+
+
+    ros2 launch ugv_simulation world_launch.py
+
+Launch the robot descriptions by executing the following command:
+
+
+    ros2 launch ugv_robots_descriptions oni_description_launch.py
+
+Launch the navigation system by executing the following command:
+
+
+    ros2 launch ugv_navigation navigation_launch.py use_sim_time:=True autostart:=True params_file:=./src/laser_ugv_system/ugv_navigation/config/nav2_params.yaml use_sim_time:=true
+
+Launch the SLAM system by executing the following command:
+
+
+    ros2 launch ugv_navigation slam_launch.py slam_params_file:=./src/laser_ugv_system/ugv_navigation/config/slam_params.yaml
+
+Launch RViz2 for visualization using the following command:
+
+
+    ros2 run rviz2 rviz2 -d $(ros2 pkg prefix ugv_navigation)/share/ugv_navigation/rviz/nav2_default_view.rviz
+
+Run the goal pose publisher using the following command:
+
+
+    ros2 run ugv_navigation goal_pose_publisher
+
+### Saving the Map
+
+To save the generated map during the simulation, use the following command:
+
+
+    ros2 run nav2_map_server map_saver_cli -f ./src/laser_ugv_system/images/maps/mapa_oni_final
+
+    This command will save the map in the specified file path (./src/laser_ugv_system/images/maps/mapa_oni_final).
+
+## Authors
+
+- Isaac Nobréga
+- João Galvão
+- Joelder Aguiar

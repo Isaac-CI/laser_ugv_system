@@ -71,6 +71,6 @@ To save the generated map during the simulation, use the following command:
 
 ## Authors
 
-- Isaac Nobréga
+- Isaac Nóbrega
 - João Galvão
 - Joelder Aguiar
